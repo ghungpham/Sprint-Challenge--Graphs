@@ -21,7 +21,38 @@ player = Player("Name", world.startingRoom)
 
 
 # FILL THIS IN
-traversalPath = ['n', 's']
+traversalPath = []
+visitedRooms = {}
+revPath = []
+rooms_dict = {}
+rev_dir = {'n': 's', 's': 'n', 'w': 'e', 'e': 'w' }
+
+#get exits from the starting room
+visitedRooms[player.currentRoom.id] = player.currentRoom.getExits()
+rooms_dict[player.currentRoom.id] = player.currentRoom.getExits()
+
+
+while len(visitedRooms) < len(roomGraph)-1:
+    if player.currentRoom.id not in visitedRooms:
+
+        visitedRooms[player.currentRoom.id] = player.currentRoom.getExits()
+        rooms_dict[player.currentRoom.id] = player.currentRoom.getExits()
+        
+        prevDirection = revPath[-1]
+
+        rooms_dict[player.currentRoom.id].remove(prevDirection)
+
+    while len(rooms_dict[player.currentRoom.id]) < 1:
+
+        reverse = revPath.pop()
+        traversalPath.append(reverse)
+        player.travel(reverse)
+
+
+    exitDir = rooms_dict[player.currentRoom.id].pop()
+    traversalPath.append(exitDir)
+    revPath.append(rev_dir[exitDir])
+    player.travel(exitDir)
 
 
 # TRAVERSAL TEST
@@ -42,7 +73,7 @@ else:
 
 #######
 # UNCOMMENT TO WALK AROUND
-#######
+######
 # player.currentRoom.printRoomDescription(player)
 # while True:
 #     cmds = input("-> ").lower().split(" ")
