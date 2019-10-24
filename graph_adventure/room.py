@@ -1,18 +1,14 @@
 # Implement a class to hold room information. This should have name and
 # description attributes.
 class Room:
-    def __init__(self, name, description, id=0, x=None, y=None):
+    def __init__(self, id=0):
         self.id = id
-        self.name = name
-        self.description = description
         self.n_to = None
         self.s_to = None
         self.e_to = None
         self.w_to = None
-        self.x = x
-        self.y = y
-    def __str__(self):
-        return f"\n-------------------\n\n{self.name}\n\n   {self.description}\n\n{self.getExitsString()}\n"
+    # def __str__(self):
+    #     return f"\n-------------------\n\n{self.name}\n\n   {self.description}\n\n{self.getExitsString()}\n"
     def printRoomDescription(self, player):
         print(str(self))
     def getExits(self):
@@ -55,5 +51,5 @@ class Room:
             return self.w_to
         else:
             return None
-    def getCoords(self):
-        return [self.x, self.y]
+    # def getCoords(self):
+    #     return [self.x, self.y]
